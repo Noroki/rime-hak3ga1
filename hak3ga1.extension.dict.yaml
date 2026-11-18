@@ -1,0 +1,124 @@
+# 增補詞庫
+
+---
+name: hak3ga1.extension
+version: "2026.10.17"
+sort: by_weight
+...
+
+# 增補字符
+一	yit3
+這	za3
+進	zin4
+# 熱	ngiet4
+續	suk4
+嘴	zui3	#（末端）
+嘴	zoi4	#（口部）
+脣	sun2
+昏	fun1
+婚	fun1
+趣	ci4
+躍	yok3
+污	vu1
+汙	vu1
+嘛	ma1
+嘛	ma2	#喇～
+粘	zam1	#～米
+粘	ngiam2	#～貼
+貓	miau4	#～狗
+貓	miau2	#～仔
+邦	bong1
+滯	ce4
+豁	hot3
+籽	zu3
+逸	yit4
+衍	yen3
+頜	hap4
+愣	lin4
+楞	lin2
+棱	lin2
+甩	lot3
+孢
+呐	nap4
+酶
+瞅
+咧	liet4
+溢	yit3
+嘎	gat3
+熒	yin2
+斌	bin1
+茨	ci2
+嵌	kiam2
+疙	ngiet3
+憨	ham1
+憋	biet3
+# 嗨	hoi1
+硯	yen4
+涅	ngiap3
+湼	ngiap3
+
+烷
+烯
+烴
+硅
+苯
+銨
+胺	on1
+胺	at3	#（汗味）
+溴	ciu4
+
+字	su4
+衛	vui4
+煒	vui3
+薈	fui4
+
+蚻	zat3
+黃蚻	vong2 cat4
+淥	luk4
+巴士	ba4 si3
+
+爲	vui4
+糭	zung4
+糉	zung4
+
+時間	si2 gan1
+
+幾	gi3	100
+
+棒	pong3	9.99%	#根據1926年《客英字典》
+
+搵	vun3
+㖠	lai4
+麼	mo1
+着	cok4	#zoek6: 唔～、～手
+着	zok3	#zoek3: 衣～
+啓	ki3
+餸	sung4
+
+# TTS
+妳	li1
+禰	li3
+喎	vo3
+喎	vo3
+菇	gu1
+鯪	lang2
+
+啦	la3
+喺	he3	#類推讀音
+㗎	ga3	#類推讀音
+瀅	yin2	#類推讀音
+
+
+# 多音字
+開	koi1	1000
+# 開始	koi1 ci3
+# 開始	hoi1 su3
+#開始	koi1 su3
+
+# 《研究》同音字表勘誤
+# 乏	fap6	1000	#《客英字典》如此
+法	fap5	1000
+琺	fap5	1000
+砝	fap5	1000
+經	gin1	#TTS 如此
+元	ngien2	#《客英字典》如此
