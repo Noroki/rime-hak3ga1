@@ -1,0 +1,198 @@
+# 拼音方案參考《香港客家話研究》
+
+schema:
+  schema_id: hak3ga1
+  name: 香港客家話
+  version: "2026.10.17"
+  author:
+    - Noroki
+  description: |
+    香港客家語拼音輸入方案
+  dependencies:
+    - jyut6ping3
+    - luna_pinyin
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 西文 ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: simplification
+    states: [ 漢字, 汉字 ]
+  - name: ascii_punct
+    states: [ ，。, ，． ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+    - affix_segmentor@cantonese_reverse_lookup
+    - affix_segmentor@mandarin_reverse_lookup
+  translators:
+    - punct_translator
+    - script_translator
+    - script_translator@cantonese_reverse_lookup
+    - script_translator@mandarin_reverse_lookup
+    - reverse_lookup_translator@cantonese_reverse_lookup
+    - reverse_lookup_translator@mandarin_reverse_lookup
+  filters:
+    - simplifier
+    - uniquifier
+    - reverse_lookup_filter@hak3ga1_reverse_lookup
+
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba
+  delimiter: " '"
+  algebra:
+    - derive/[0123456]//          # 忽略聲調
+
+    - xform/1/s/                  # 陰平
+    - xform/2/x/                  # 陽平
+    - xform/3/w/                  # 上聲、陰入
+    - xform/4/f/                  # 去聲、陽入
+    - xform/5/w/                  # 上聲、陰入
+    - xform/6/f/                  # 去聲、陽入
+
+    - abbrev/^([a-z]).+$/$1/        # 簡拼
+
+translator:
+  dictionary: hak3ga1
+  spelling_hints: 5
+  preedit_format:
+    # convert input to tone number
+    - xform/([aeiouymngptk])f/${1}4/
+    - xform/([aeiouymngptk])s/${1}1/
+    - xform/([aeiouymngptk])x/${1}2/
+    - xform/([aeiouymngptk])w/${1}3/
+    
+    # move tone number
+    - xform/([aeoiu])([iu])([1234])/$1$3$2/
+    - xform/([aoieu])(ng?)([1234])/$1$3$2/
+    - xform/([aoieu])([mptk])([1234])/$1$3$2/
+    
+    # tone symbol
+    - xform/a1/á/
+    - xform/a2/ā/
+    - xform/a3/ă/
+    - xform/a4/à/
+    - xform/e1/é/
+    - xform/e2/ē/
+    - xform/e3/ĕ/
+    - xform/e4/è/
+    - xform/o1/ó/
+    - xform/o2/ō/
+    - xform/o3/ŏ/
+    - xform/o4/ò/
+    - xform/i1/í/
+    - xform/i2/ī/
+    - xform/i3/ĭ/
+    - xform/i4/ì/
+    - xform/u1/ú/
+    - xform/u2/ū/
+    - xform/u3/ŭ/
+    - xform/u4/ù/
+    - xform/ng1/ńg/
+    - xform/ng2/n̄g/
+    - xform/ng3/n̆g/
+    - xform/ng4/ǹg/
+    - xform/m1/ḿ/
+    
+    # remove redundant tone number
+    - xform/([a-z]+)[0-6]/$1/
+  comment_format: &comment_rules
+    - xform/5/3/
+    - xform/6/4/
+
+    - xform/([aeoiu])([iu])([1234])/$1$3$2/
+    - xform/([aoieu])(ng?)([1234])/$1$3$2/
+    - xform/([aoieu])([mptk])([1234])/$1$3$2/
+
+    - xform/a1/á/
+    - xform/a2/ā/
+    - xform/a3/ă/
+    - xform/a4/à/
+    - xform/e1/é/
+    - xform/e2/ē/
+    - xform/e3/ĕ/
+    - xform/e4/è/
+    - xform/o1/ó/
+    - xform/o2/ō/
+    - xform/o3/ŏ/
+    - xform/o4/ò/
+    - xform/i1/í/
+    - xform/i2/ī/
+    - xform/i3/ĭ/
+    - xform/i4/ì/
+    - xform/u1/ú/
+    - xform/u2/ū/
+    - xform/u3/ŭ/
+    - xform/u4/ù/
+    - xform/ng1/ńg/
+    - xform/ng2/n̄g/
+    - xform/ng3/n̆g/
+    - xform/ng4/ǹg/
+    - xform/m1/ḿ/
+
+    # remove redundant tone number
+    - xform/([a-z]+)[0-6]/$1/
+
+    # always display full pinyin with zero-width character
+    - "xform/$/\u200b/"
+
+cantonese_reverse_lookup:
+  tag: cantonese_lookup
+  dictionary: jyut6ping3
+  prefix: "j"
+  suffix: ";"
+  tips: 〔Cantonese〕
+  preedit_format:
+    - xform/^j//
+  comment_format: *comment_rules
+
+mandarin_reverse_lookup:
+  tag: mandarin_lookup
+  dictionary: luna_pinyin
+  prefix: "u"
+  suffix: ";"
+  tips: 〔Mandarin〕
+  preedit_format:
+    - xform/^u//
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
+  comment_format: *comment_rules
+
+hak3ga1_reverse_lookup:
+  tags: [ script_translator ]
+  dictionary: hak3ga1
+  overwrite_comment: false
+
+reverse_lookup:
+  tags: [ cantonese_lookup, mandarin_lookup ]
+  overwrite_comment: false
+
+punctuator:
+  import_preset: default
+
+key_binder:
+  import_preset: default
+
+recognizer:
+  import_preset: default
+  patterns:
+    punct: "^/([0-9]0?|[a-z]+)$"
+    cantonese_lookup: "^j[a-z]*;?$"
+    mandarin_lookup: "^u[a-z]*;?$"
