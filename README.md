@@ -1,2 +1,14 @@
-# rime-hak3ga1
-Hong Kong Hakka input schema for Rime
+# Rime 香港客家話輸入方案
+這隻方案係香港客家話輸入方案，用等《香港客家話研究》裏背嘅客家話拼音方案。
+
+## 安裝
+安裝好 Rime 後，將這隻方案嘅相關 yaml 放到 Rime 用戶文件夾，並在 default.custom.yaml 裏背加入`hak3ga1`方案。重新部署即可使用。
+
+## 使用
+這隻方案支持粵語、普通話反查客家話。
+j: 粵語反查
+u: 普通話反查
+
+## 用例
+輸入：hak3 ga1 va4
+輸出：客家話
